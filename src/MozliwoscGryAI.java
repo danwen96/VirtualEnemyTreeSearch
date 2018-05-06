@@ -1,4 +1,4 @@
-public interface MozliwoscAI {
+public interface MozliwoscGryAI {
 
     DrzewoDecyzyjne zbudujDrzewo(int aktualnyGracz);
 }

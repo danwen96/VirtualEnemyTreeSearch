@@ -1,12 +1,11 @@
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
-public class KolkoIKrzyzyk implements MozliwoscAI{
+public class KolkoIKrzyzyk implements MozliwoscGryAI {
 
     PlanszaKolkoIKrzyzyk planszaKolkoIKrzyzyk;
     //PlanszaKolkoIKrzyzyk planszaDoPrzewidywania;
+    WirtualnyPrzeciwnik wirtualnyPrzeciwnik;
 
     KolkoIKrzyzyk() {
         planszaKolkoIKrzyzyk = new PlanszaKolkoIKrzyzyk();
@@ -57,6 +56,7 @@ public class KolkoIKrzyzyk implements MozliwoscAI{
     // metoda rozpoczynajaca gre z komputerem
     void graZKomputerem(){ //TO DO
         WirtualnyPrzeciwnik wirtualnyPrzeciwnik = new WirtualnyPrzeciwnik();
+        this.wirtualnyPrzeciwnik = wirtualnyPrzeciwnik;
         int tura = 0;
         Random random = new Random();
         if( random.nextInt()<0)
@@ -86,6 +86,7 @@ public class KolkoIKrzyzyk implements MozliwoscAI{
             }
 
             if (tura == 1) {
+                wirtualnyPrzeciwnik.stronaPlanszy = tura;
                 int zwrot = wirtualnyPrzeciwnik.zwrocRuch(zbudujDrzewo(tura));//ruch komputera jest uzyskiwany za pomoca klasy WirtualnyPrzeciwnik
 
                 System.out.println("\n\nZwrocono " + zwrot);
@@ -118,52 +119,64 @@ public class KolkoIKrzyzyk implements MozliwoscAI{
             znak = 'x';
 
         DrzewoDecyzyjne drzewoDecyzyjne = new DrzewoDecyzyjne();
-        int wartoscRuchu;
+        int wartoscRuchu = 0;
+
+//        for (int k = 0; k < planszaKolkoIKrzyzyk.getN(); k++) {// aktualnie rozwazane pole
+//            for (int l = 0; l < planszaKolkoIKrzyzyk.getN(); l++) {//druga petla odpowiedzialna za aktualnie rozwazane pole
+//                wartoscRuchu = 0;
+//                if(planszaKolkoIKrzyzyk.plansza[k][l] != '-')
+//                {
+//                    continue;
+//                }
+//                for (int i = 0; i < planszaKolkoIKrzyzyk.getN(); i++) {
+//                    for (int j = 0; j < planszaKolkoIKrzyzyk.getN(); j++) {
+//                        if(i != k || l != j) {
+//                            if (planszaKolkoIKrzyzyk.plansza[i][j] == '-') {
+//                                if (i == k)
+//                                    wartoscRuchu++;
+//                                if (l == j)
+//                                    wartoscRuchu++;
+//                                if (k == l && i == j)
+//                                    wartoscRuchu++;
+//                                if (k == (planszaKolkoIKrzyzyk.getN() - 1 - l) && i == (planszaKolkoIKrzyzyk.getN() - 1 - j))
+//                                    wartoscRuchu++;
+//                            } else if(planszaKolkoIKrzyzyk.plansza[i][j] == znak) {
+//                                if (i == k)
+//                                    wartoscRuchu+=10;
+//                                if (l == j)
+//                                    wartoscRuchu+=10;
+//                                if (k == l && i == j)
+//                                    wartoscRuchu+=10;
+//                                if (k == (planszaKolkoIKrzyzyk.getN() - 1 - l) && i == (planszaKolkoIKrzyzyk.getN() - 1 - j))
+//                                    wartoscRuchu+=10;
+//                            } else {
+//                                if (i == k)
+//                                    wartoscRuchu-=0;
+//                                if (l == j)
+//                                    wartoscRuchu-=0;
+//                                if (k == l && i == j)
+//                                    wartoscRuchu-=0;
+//                                if (k == (planszaKolkoIKrzyzyk.getN() - 1 - l) && i == (planszaKolkoIKrzyzyk.getN() - 1 - j))
+//                                    wartoscRuchu-=0;
+//                            }
+//
+//                        }
+//                    }
+//                }
+//                drzewoDecyzyjne.dodajRodzica(k,l,wartoscRuchu,k*planszaKolkoIKrzyzyk.getN() + l);
+//
+//            }
+//        }
 
         for (int k = 0; k < planszaKolkoIKrzyzyk.getN(); k++) {// aktualnie rozwazane pole
             for (int l = 0; l < planszaKolkoIKrzyzyk.getN(); l++) {//druga petla odpowiedzialna za aktualnie rozwazane pole
                 wartoscRuchu = 0;
-                if(planszaKolkoIKrzyzyk.plansza[k][l] != '-')
-                {
+                if (planszaKolkoIKrzyzyk.plansza[k][l] != '-') {
                     continue;
                 }
-                for (int i = 0; i < planszaKolkoIKrzyzyk.getN(); i++) {
-                    for (int j = 0; j < planszaKolkoIKrzyzyk.getN(); j++) {
-                        if(i != k || l != j) {
-                            if (planszaKolkoIKrzyzyk.plansza[i][j] == '-') {
-                                if (i == k)
-                                    wartoscRuchu++;
-                                if (l == j)
-                                    wartoscRuchu++;
-                                if (k == l && i == j)
-                                    wartoscRuchu++;
-                                if (k == (planszaKolkoIKrzyzyk.getN() - 1 - l) && i == (planszaKolkoIKrzyzyk.getN() - 1 - j))
-                                    wartoscRuchu++;
-                            } else if(planszaKolkoIKrzyzyk.plansza[i][j] == znak) {
-                                if (i == k)
-                                    wartoscRuchu+=4;
-                                if (l == j)
-                                    wartoscRuchu+=4;
-                                if (k == l && i == j)
-                                    wartoscRuchu+=4;
-                                if (k == (planszaKolkoIKrzyzyk.getN() - 1 - l) && i == (planszaKolkoIKrzyzyk.getN() - 1 - j))
-                                    wartoscRuchu+=4;
-                            } else {
-                                if (i == k)
-                                    wartoscRuchu-=2;
-                                if (l == j)
-                                    wartoscRuchu-=2;
-                                if (k == l && i == j)
-                                    wartoscRuchu-=2;
-                                if (k == (planszaKolkoIKrzyzyk.getN() - 1 - l) && i == (planszaKolkoIKrzyzyk.getN() - 1 - j))
-                                    wartoscRuchu-=2;
-                            }
-
-                        }
-                    }
+                else{
+                    drzewoDecyzyjne.dodajRodzica(k,l,0,k*planszaKolkoIKrzyzyk.getN() + l);
                 }
-                drzewoDecyzyjne.dodajRodzica(k,l,wartoscRuchu,k*planszaKolkoIKrzyzyk.getN() + l);
-
             }
         }
 
@@ -181,6 +194,9 @@ public class KolkoIKrzyzyk implements MozliwoscAI{
         }
 
         //TO DO
+
+
+
         return drzewoDecyzyjne;
     }
 
@@ -193,54 +209,73 @@ public class KolkoIKrzyzyk implements MozliwoscAI{
             znak = 'x';
         int wartoscRuchu;
 
+        if(planszaKolkoIKrzyzyk.sprawdzWygrana() != 0) {
+           // planszaKolkoIKrzyzyk.wyswietlPlansze();
+            if(aktualnyGracz != wirtualnyPrzeciwnik.stronaPlanszy)// tu jest sprawdzana wygranego poprzedniego gracza a nie aktulanego wiec musi byc !=
+                elementDrzewa.wartosc +=10000;
+            else elementDrzewa.wartosc -= 10000;
+            return;
+        }
+
+//        for (int k = 0; k < planszaKolkoIKrzyzyk.getN(); k++) {// aktualnie rozwazane pole
+//            for (int l = 0; l < planszaKolkoIKrzyzyk.getN(); l++) {//druga petla odpowiedzialna za aktualnie rozwazane pole
+//                wartoscRuchu = 0;
+//                if(planszaKolkoIKrzyzyk.plansza[k][l] != '-')
+//                {
+//                    continue;
+//                }
+//                for (int i = 0; i < planszaKolkoIKrzyzyk.getN(); i++) {
+//                    for (int j = 0; j < planszaKolkoIKrzyzyk.getN(); j++) {
+//                        if(i != k || l != j) {
+//                            if (planszaKolkoIKrzyzyk.plansza[i][j] == '-') {
+//                                if (i == k)
+//                                    wartoscRuchu++;
+//                                if (l == j)
+//                                    wartoscRuchu++;
+//                                if (k == l && i == j)
+//                                    wartoscRuchu++;
+//                                if (k == (planszaKolkoIKrzyzyk.getN() - 1 - l) && i == (planszaKolkoIKrzyzyk.getN() - 1 - j))
+//                                    wartoscRuchu++;
+//                            } else if(planszaKolkoIKrzyzyk.plansza[i][j] == znak) {
+//                                if (i == k)
+//                                    wartoscRuchu+=10;
+//                                if (l == j)
+//                                    wartoscRuchu+=10;
+//                                if (k == l && i == j)
+//                                    wartoscRuchu+=10;
+//                                if (k == (planszaKolkoIKrzyzyk.getN() - 1 - l) && i == (planszaKolkoIKrzyzyk.getN() - 1 - j))
+//                                    wartoscRuchu+=10;
+//                            } else {
+//                                if (i == k)
+//                                    wartoscRuchu-=0;
+//                                if (l == j)
+//                                    wartoscRuchu-=0;
+//                                if (k == l && i == j)
+//                                    wartoscRuchu-=0;
+//                                if (k == (planszaKolkoIKrzyzyk.getN() - 1 - l) && i == (planszaKolkoIKrzyzyk.getN() - 1 - j))
+//                                    wartoscRuchu-=0;
+//                            }
+//
+//                        }
+//                    }
+//                }
+//                if(aktualnyGracz != wirtualnyPrzeciwnik.stronaPlanszy)
+//                    wartoscRuchu = -wartoscRuchu;
+//                elementDrzewa.dodajDziecko(k,l,wartoscRuchu,k*planszaKolkoIKrzyzyk.getN() + l);
+//
+//            }
+//        }
         for (int k = 0; k < planszaKolkoIKrzyzyk.getN(); k++) {// aktualnie rozwazane pole
             for (int l = 0; l < planszaKolkoIKrzyzyk.getN(); l++) {//druga petla odpowiedzialna za aktualnie rozwazane pole
                 wartoscRuchu = 0;
-                if(planszaKolkoIKrzyzyk.plansza[k][l] != '-')
-                {
+                if (planszaKolkoIKrzyzyk.plansza[k][l] != '-') {
                     continue;
                 }
-                for (int i = 0; i < planszaKolkoIKrzyzyk.getN(); i++) {
-                    for (int j = 0; j < planszaKolkoIKrzyzyk.getN(); j++) {
-                        if(i != k || l != j) {
-                            if (planszaKolkoIKrzyzyk.plansza[i][j] == '-') {
-                                if (i == k)
-                                    wartoscRuchu++;
-                                if (l == j)
-                                    wartoscRuchu++;
-                                if (k == l && i == j)
-                                    wartoscRuchu++;
-                                if (k == (planszaKolkoIKrzyzyk.getN() - 1 - l) && i == (planszaKolkoIKrzyzyk.getN() - 1 - j))
-                                    wartoscRuchu++;
-                            } else if(planszaKolkoIKrzyzyk.plansza[i][j] == znak) {
-                                if (i == k)
-                                    wartoscRuchu+=4;
-                                if (l == j)
-                                    wartoscRuchu+=4;
-                                if (k == l && i == j)
-                                    wartoscRuchu+=4;
-                                if (k == (planszaKolkoIKrzyzyk.getN() - 1 - l) && i == (planszaKolkoIKrzyzyk.getN() - 1 - j))
-                                    wartoscRuchu+=4;
-                            } else {
-                                if (i == k)
-                                    wartoscRuchu-=2;
-                                if (l == j)
-                                    wartoscRuchu-=2;
-                                if (k == l && i == j)
-                                    wartoscRuchu-=2;
-                                if (k == (planszaKolkoIKrzyzyk.getN() - 1 - l) && i == (planszaKolkoIKrzyzyk.getN() - 1 - j))
-                                    wartoscRuchu-=2;
-                            }
-
-                        }
-                    }
+                else{
+                    elementDrzewa.dodajDziecko(k,l,0,k*planszaKolkoIKrzyzyk.getN() + l);
                 }
-                elementDrzewa.dodajDziecko(k,l,wartoscRuchu,k*planszaKolkoIKrzyzyk.getN() + l);
-
             }
         }
-
-
 
         PlanszaKolkoIKrzyzyk tmp;
         for (int i = 0; i < elementDrzewa.dzieci.size(); i++) {
