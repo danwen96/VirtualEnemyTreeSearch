@@ -1,6 +1,11 @@
+/** Klasa zawierajaca plansze do warcab // TO DO
+ */
 public class WarcabyPlansza {
     char tab[][];
 
+    /**Tworzenie nowej tablicy i wypelnienie jej
+     *
+     */
     WarcabyPlansza()
     {
         tab = new char[8][8];

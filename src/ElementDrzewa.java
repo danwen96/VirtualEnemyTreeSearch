@@ -3,6 +3,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**Klasa uzywana w drzewie decyzyjnym, umozliwia ona jego budowanie i przechowywanie informacji
+ * @see DrzewoDecyzyjne
+ */
 public class ElementDrzewa {
     ElementDrzewa rodzic;
     List<ElementDrzewa> dzieci = new ArrayList<ElementDrzewa>();
@@ -13,6 +16,13 @@ public class ElementDrzewa {
     int indj;
 
     ElementDrzewa(){}
+
+    /**
+     * @param indi index x tablicy dla ktorego rozpatrywany jest ruch
+     * @param indj index y tablicy dla ktorego rozpatrywany jest ruch
+     * @param rodzic rodzic danego elementu w drzewie
+     * @param wartosc wartosc ruchu danego elementu
+     */
     ElementDrzewa(int indi,int indj,ElementDrzewa rodzic,int wartosc)
     {
         this.indi = indi;
@@ -21,6 +31,12 @@ public class ElementDrzewa {
         this.wartosc = wartosc;
     }
 
+    /** Metoda dodajaca elementy do listy dzieci w aktualnym elemencie drzewa
+     * @param indi index x tablicy dla ktorego rozpatrywany jest ruch
+     * @param indj index y tablicy dla ktorego rozpatrywany jest ruch
+     * @param wartosc wartosc ruchu do dodania
+     * @param index rzeczywisty index elementu na tablicy
+     */
     void dodajDziecko(int indi,int indj,int wartosc,int index)
     {
         ElementDrzewa dziecko = new ElementDrzewa(indi,indj,this,wartosc);
@@ -28,6 +44,9 @@ public class ElementDrzewa {
         indexyOdpowiadajace.put(indexWDrzewie++,index);
     }
 
+    /**
+     * @return Metoda zwraca index dziecka z maksymalna wartoscia
+     */
     int zwrocIndexMaksymalnejWartosciDziecka()
     {
         int maksIndex = -1;
@@ -42,6 +61,9 @@ public class ElementDrzewa {
         }
         return maksIndex;
     }
+    /**
+     * @return Metoda zwraca index dziecka z minimalna wartoscia
+     */
     int zwrocIndexMinimalnejWartosciDziecka()
     {
         int minIndex = -1;

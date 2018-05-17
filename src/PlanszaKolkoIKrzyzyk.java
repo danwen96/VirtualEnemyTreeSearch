@@ -1,3 +1,5 @@
+/**Klasa zawierajaca plansze do gry w kolko i krzyzyk i metody umozliwiajace uzywanie na niej podstawowych akcji
+ */
 public class PlanszaKolkoIKrzyzyk {
     public char[][] plansza;
 
@@ -7,11 +9,15 @@ public class PlanszaKolkoIKrzyzyk {
         return n;
     }
 
+    /**Tworzenie nowej tablicy charow i wyzerowanie ich
+     */
     PlanszaKolkoIKrzyzyk() {
         plansza = new char[n][n];
         wyczysc();
     }
 
+    /**Metoda zerujaca tablice plansza
+     */
     void wyczysc(){
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -20,16 +26,26 @@ public class PlanszaKolkoIKrzyzyk {
         }
     }
 
+    /**Metoda umieszczajaca kolko na danych wspolrzednych
+     * @param k wsporzedna pola x
+     * @param l wspolrzedna pola y
+     */
     void umiescKolko(int k,int l)
     {
         plansza[k][l] = 'o';
     }
 
+    /**Metoda umieszczajaca krzyz na danych wspolrzednych
+     * @param k wsporzedna pola x
+     * @param l wspolrzedna pola y
+     */
     void umiescKrzyzyk(int k,int l)
     {
         plansza[k][l] = 'x';
     }
 
+    /**Metoda wyswietlajaca sformatowana plansze w terminalu
+     */
     void wyswietlPlansze()
     {
         for (int i = 0; i < n; i++) {
@@ -40,6 +56,9 @@ public class PlanszaKolkoIKrzyzyk {
         }
     }
 
+    /**Metoda kopiujaca plansze z podanego obiektu PlanszaKolkoIKrzyzyk do tego obiektu
+     * @param plansza
+     */
     void skopiujTablice(PlanszaKolkoIKrzyzyk plansza)
     {
         for (int i = 0; i < n; i++) {
@@ -49,6 +68,9 @@ public class PlanszaKolkoIKrzyzyk {
         }
     }
 
+    /**
+     * @return zwraca true jesli jest jeszcze miejsce na ruch na planszy
+     */
     boolean sprawdzCzyJestJeszczeWolnePole()
     {
         for(int i=0;i<n;i++) {
@@ -61,7 +83,9 @@ public class PlanszaKolkoIKrzyzyk {
     }
 
 
-    // 0 gdy jeszcze nikt nie wygral, 1 gdy wygra kollko, 2 gdy krzyzyk, 3 gdy remis
+    /** Metoda sprawdza czy na planszy nie zaszla sytuacja oznaczajaca wygrana ktorejs ze stron
+     * @return 0 gdy jeszcze nikt nie wygral, 1 gdy wygra kollko, 2 gdy krzyzyk
+     */
     int sprawdzWygrana()
     {
         boolean sprawdzenieo = true;

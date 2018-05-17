@@ -3,15 +3,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/** Klasa przechowywyjaca drzewo decyzyjne przy pomocy obiektow ElementDrzewa
+ * @see ElementDrzewa
+ */
 public class DrzewoDecyzyjne {
-
-    //w drzewie decyzyjnym wartosci oznaczaja naprzemienne przyblizone wartosci ruchow kazdego z graczy
-    /*np
-          1     3 - 1 gracz
-         / \   / \
-        4   6 7   2 - 2 gracz
-
-    */
 
     ElementDrzewa glownyElement;
     List<ElementDrzewa> rodzice = new ArrayList<ElementDrzewa>();
@@ -23,6 +18,12 @@ public class DrzewoDecyzyjne {
 
     }
 
+    /** Metoda dodajaca pierwsze elementy drzew oznaczajace mozliwe ruchy do wykonania
+     * @param indi wspolrzedna x ruchu na tablicy
+     * @param indj wspolrzedna y ruchu na tablicy
+     * @param wartosc wartosc ruchu ktora ma byc zapisana do danego elementu drzewa
+     * @param index index pola na planszy oznaczajacy ruch, zostaje zapisany za pomoca mapy
+     */
     void dodajRodzica(int indi,int indj,int wartosc,int index)
     {
         ElementDrzewa rodzic = new ElementDrzewa(indi,indj,null,wartosc);

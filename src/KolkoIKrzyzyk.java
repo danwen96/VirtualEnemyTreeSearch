@@ -1,21 +1,30 @@
 import java.util.Random;
 import java.util.Scanner;
 
+/**Klasa dostarcza metody umozliwiajace rozgrywke w kolko i krzyzyk dla 2 i jednego gracza,
+ * dzieki uzyciu interfejsu MozlwoscGryAI, gra moze wykorzystywac Klase WirtualnyPrzeciwnik w celu wyboru ruchow przez komputer
+ * @see WirtualnyPrzeciwnik
+ * @see MozliwoscGryAI
+ * @see PlanszaKolkoIKrzyzyk
+ */
 public class KolkoIKrzyzyk implements MozliwoscGryAI {
 
     PlanszaKolkoIKrzyzyk planszaKolkoIKrzyzyk;
     //PlanszaKolkoIKrzyzyk planszaDoPrzewidywania;
     WirtualnyPrzeciwnik wirtualnyPrzeciwnik;
 
+    /**Stworzenie nowej planszy dla gry w kolko i krzyzyk przy pomocy klasy PlanszaKolkoIKrzyzyk
+     */
     KolkoIKrzyzyk() {
         planszaKolkoIKrzyzyk = new PlanszaKolkoIKrzyzyk();
     }
 
+    /** Metoda ktora powoduje uruchomienie rozgrywki miedzy dwoma graczami na terminalu
+     */
     void graMiedzyDwomaGraczami() {//metoda umozliwiajaca gra miedzy dwoma graczami stworzona w ramach testow
         int tura = 0;
         Random random = new Random();
-        if( random.nextInt()<0)
-        {
+        if (random.nextInt() < 0) {
             tura = 1;
         }
         System.out.println("Tura = " + tura);
@@ -53,7 +62,9 @@ public class KolkoIKrzyzyk implements MozliwoscGryAI {
         System.out.println("Gra zakonczona remisem");
     }
 
-    // metoda rozpoczynajaca gre z komputerem
+    /**Metoda ktora przy pomocy klasy WirtualnyPrzeciwnik uruchamia gre z komputerem w terminalu
+     * @see WirtualnyPrzeciwnik
+     */
     void graZKomputerem(){ //TO DO
         WirtualnyPrzeciwnik wirtualnyPrzeciwnik = new WirtualnyPrzeciwnik();
         this.wirtualnyPrzeciwnik = wirtualnyPrzeciwnik;
@@ -102,11 +113,16 @@ public class KolkoIKrzyzyk implements MozliwoscGryAI {
                 continue;
             }
         }
-        System.out.println("Gra zakonczona remisem");
 
+        System.out.println("Gra zakonczona remisem");
     }
 
-
+    /** Metoda budujaca drzewo decyzyjne dla przeciwnika, za pomoca ktorego klasa WirtualnyPrzeciwnik moze podejmowac decyzje, wymagana przez interfejs MozliwoscGryAI
+     * @param aktualnyGracz int oznaczajacy dla ktorego gracza drzewo ma byc zbudowane
+     * @return zwraca drzewo decyzyjne przechowywane w klasie DrzewoDecyzyjne
+     * @see DrzewoDecyzyjne
+     * @see MozliwoscGryAI
+     */
     @Override
     public DrzewoDecyzyjne zbudujDrzewo(int aktualnyGracz)// budowanie drzewa decyzyjnego wymaganego przez interfejs mozliwoscAI, w celu mozliwosci gry z komputerem
     {
@@ -194,12 +210,14 @@ public class KolkoIKrzyzyk implements MozliwoscGryAI {
         }
 
         //TO DO
-
-
-
         return drzewoDecyzyjne;
     }
 
+    /** Metoda rekurencyjna uzywana w metodzie zbuduj drzewo
+     * @param elementDrzewa aktualnie rozpatrywany element drzewa dla ktorego sa dodawane dzieci
+     * @param planszaKolkoIKrzyzyk plansza z aktualnym rozlozeniem planszy w symulacji
+     * @param aktualnyGracz int mowiacy o tym ktory gracz ma teraz ruch, przyjmuje 0 lub 1
+     */
     private void dodajMozliweScenariusze(ElementDrzewa elementDrzewa,PlanszaKolkoIKrzyzyk planszaKolkoIKrzyzyk,int aktualnyGracz)//dalszy etap budowania drzewa wykorzystany w metodzie zbudujDrzewo
     {
         char znak;

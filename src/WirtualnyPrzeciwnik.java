@@ -1,11 +1,16 @@
 import java.util.Random;
 
+/**Klasa ktora dzieki zawartym algorytmom przeszukiwania drzewa decyzyjnego umozliwia gre z AI
+ */
 public class WirtualnyPrzeciwnik {
     DrzewoDecyzyjne drzewoDecyzyjne;
     int stronaPlanszy; // strona po ktorej gra skomputer 1 oznacza krzyzyk 0 kolo
     static int glebokosc = 0;
 
-    //metoda majaca zwrocic ruch komputera
+    /**Metoda na podstawie dostarczonego drzewa decyzyjnego zwraca index ruchu komputera uzywajac do tego ustalonego algorytmu
+     * @param drzewoDecyzyjne przyjmuje zbudowane wczesniej drzewo decyzyjne
+     * @return zwraca index ruchu do podjecia
+     */
     int zwrocRuch(DrzewoDecyzyjne drzewoDecyzyjne) {//TO DO
 //        int indexMax= 0;
 //        int wartoscMax = -1;
@@ -26,7 +31,10 @@ public class WirtualnyPrzeciwnik {
     }
 
 
-    //implementacja algorytmow przeszukiwania drzewa za pomoca ktorych bedzie zwracany ruch
+    /**Algorytm mini-max przeszukiwania drzewa decyzyjnege
+     * @param drzewoDecyzyjne drzewo decyzyjne do przeszukania
+     * @return zwraca index z drzewa decyzyjnego z najlepsza wedlug tego algorytmu wartoscia
+     */
     int minMax(DrzewoDecyzyjne drzewoDecyzyjne)
     {
         //TO DO
@@ -51,10 +59,9 @@ public class WirtualnyPrzeciwnik {
 
 
     /**
-     * Rekursywna metoda uzywana w funkcji minMax zwracajaca najwieksza albo najmniejsza wartosc dziecka w zaleznosci
-     *
+     * Rekursywna metoda uzywana w funkcji minMax zwracajaca najwieksza albo najmniejsza wartosc dziecka w zaleznosci od glebokosci przeszukania
      * @param elementDrzewa element drzewa dla ktorego beda szukane wartosci
-     * @param operacja 1 oznacza zwrocenie max 0 mininimum
+     * @param operacja 1 oznacza zwrocenie max 0 mininimum, przechodzac wglab powinna zmieniac sie na przemian
      * @return najwieksza albo najmniejsza wartosc
      * @see ElementDrzewa
      */
@@ -106,12 +113,19 @@ public class WirtualnyPrzeciwnik {
         }
     }
 
+    /**
+     * //TO DO
+     */
     int alphaBeta(DrzewoDecyzyjne drzewoDecyzyjne)
     {
         //TO DO
         return 0;
     }
 
+    /**Metoda zwraca calkowicie losowy ruch, moze byc uzywana do testow
+     * @param drzewoDecyzyjne drzewo decyzyjne dla ktorego index ruchu ma byc zwrocony
+     * @return index ruchu w otrzymanym drzewie decyzyjnym
+     */
     int fullRand(DrzewoDecyzyjne drzewoDecyzyjne)
     {
         Random random = new Random();
