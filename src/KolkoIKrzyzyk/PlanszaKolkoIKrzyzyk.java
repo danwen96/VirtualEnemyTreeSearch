@@ -1,3 +1,5 @@
+package KolkoIKrzyzyk;
+
 /**Klasa zawierajaca plansze do gry w kolko i krzyzyk i metody umozliwiajace uzywanie na niej podstawowych akcji
  */
 public class PlanszaKolkoIKrzyzyk {
@@ -46,7 +48,7 @@ public class PlanszaKolkoIKrzyzyk {
 
     /**Metoda wyswietlajaca sformatowana plansze w terminalu
      */
-    void wyswietlPlansze()
+    public void wyswietlPlansze()
     {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -56,22 +58,23 @@ public class PlanszaKolkoIKrzyzyk {
         }
     }
 
-    /**Metoda kopiujaca plansze z podanego obiektu PlanszaKolkoIKrzyzyk do tego obiektu
-     * @param plansza
+    /**Metoda kopiujaca plansze z podanego obiektu KolkoIKrzyzyk.PlanszaKolkoIKrzyzyk do tego obiektu
+     * @param plansza plansza z ktorej elementy beda skopiwane
      */
     void skopiujTablice(PlanszaKolkoIKrzyzyk plansza)
     {
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                this.plansza[i][j] = plansza.plansza[i][j];
-            }
-        }
+//        for (int i = 0; i < n; i++) {
+//            for (int j = 0; j < n; j++) {
+//                this.plansza[i][j] = plansza.plansza[i][j];
+//            }
+//        }
+        System.arraycopy(plansza.plansza,0,this.plansza,0,n);
     }
 
     /**
      * @return zwraca true jesli jest jeszcze miejsce na ruch na planszy
      */
-    boolean sprawdzCzyJestJeszczeWolnePole()
+    public boolean sprawdzCzyJestJeszczeWolnePole()
     {
         for(int i=0;i<n;i++) {
             for (int j = 0; j < n; j++) {
@@ -86,7 +89,7 @@ public class PlanszaKolkoIKrzyzyk {
     /** Metoda sprawdza czy na planszy nie zaszla sytuacja oznaczajaca wygrana ktorejs ze stron
      * @return 0 gdy jeszcze nikt nie wygral, 1 gdy wygra kollko, 2 gdy krzyzyk
      */
-    int sprawdzWygrana()
+    public int sprawdzWygrana()
     {
         boolean sprawdzenieo = true;
         boolean sprawdzeniex = true;
@@ -105,13 +108,13 @@ public class PlanszaKolkoIKrzyzyk {
                 if(plansza[j][i] != 'x')
                     sprawdzeniex2 = false;
             }
-            if(sprawdzenieo == true)
+            if(sprawdzenieo)
                 return 1;
-            if(sprawdzeniex == true)
+            if(sprawdzeniex)
                 return 2;
-            if(sprawdzenieo2 == true)
+            if(sprawdzenieo2)
                 return 1;
-            if(sprawdzeniex2 == true)
+            if(sprawdzeniex2)
                 return 2;
             sprawdzenieo = true;
             sprawdzeniex = true;
@@ -130,13 +133,13 @@ public class PlanszaKolkoIKrzyzyk {
                 sprawdzeniex2 = false;
         }
 
-        if(sprawdzenieo == true)
+        if(sprawdzenieo)
             return 1;
-        if(sprawdzeniex == true)
+        if(sprawdzeniex)
             return 2;
-        if(sprawdzenieo2 == true)
+        if(sprawdzenieo2)
             return 1;
-        if(sprawdzeniex2 == true)
+        if(sprawdzeniex2)
             return 2;
 
         return 0;

@@ -1,19 +1,21 @@
+package WirtualnyPrzeciwnik;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**Klasa uzywana w drzewie decyzyjnym, umozliwia ona jego budowanie i przechowywanie informacji
- * @see DrzewoDecyzyjne
+ * @see WirtualnyPrzeciwnik.DrzewoDecyzyjne
  */
 public class ElementDrzewa {
-    ElementDrzewa rodzic;
-    List<ElementDrzewa> dzieci = new ArrayList<ElementDrzewa>();
-    Map<Integer,Integer> indexyOdpowiadajace = new HashMap<Integer,Integer>();
-    int indexWDrzewie = 0;
+    private ElementDrzewa rodzic;
+    public List<ElementDrzewa> dzieci = new ArrayList<>();
+    private Map<Integer,Integer> indexyOdpowiadajace = new HashMap<>();
+    private int indexWDrzewie = 0;
     int wartosc;
-    int indi;//wsporzedne mowiace do ktorego pola planszy element sie odnosi
-    int indj;
+    private int indi;//wsporzedne mowiace do ktorego pola planszy element sie odnosi
+    private int indj;
 
     ElementDrzewa(){}
 
@@ -37,7 +39,7 @@ public class ElementDrzewa {
      * @param wartosc wartosc ruchu do dodania
      * @param index rzeczywisty index elementu na tablicy
      */
-    void dodajDziecko(int indi,int indj,int wartosc,int index)
+    public void dodajDziecko(int indi,int indj,int wartosc,int index)
     {
         ElementDrzewa dziecko = new ElementDrzewa(indi,indj,this,wartosc);
         dzieci.add(dziecko);
@@ -77,5 +79,22 @@ public class ElementDrzewa {
             }
         }
         return minIndex;
+    }
+
+
+    public int getIndi() {
+        return indi;
+    }
+
+    public int getIndj() {
+        return indj;
+    }
+
+    public int getWartosc() {
+        return wartosc;
+    }
+
+    public void setWartosc(int wartosc) {
+        this.wartosc = wartosc;
     }
 }

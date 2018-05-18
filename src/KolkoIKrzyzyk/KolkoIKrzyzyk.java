@@ -1,27 +1,31 @@
+package KolkoIKrzyzyk;
+
+import WirtualnyPrzeciwnik.*;
+
 import java.util.Random;
 import java.util.Scanner;
 
 /**Klasa dostarcza metody umozliwiajace rozgrywke w kolko i krzyzyk dla 2 i jednego gracza,
- * dzieki uzyciu interfejsu MozlwoscGryAI, gra moze wykorzystywac Klase WirtualnyPrzeciwnik w celu wyboru ruchow przez komputer
+ * dzieki uzyciu interfejsu MozlwoscGryAI, gra moze wykorzystywac Klase WirtualnyPrzeciwnik.WirtualnyPrzeciwnik w celu wyboru ruchow przez komputer
  * @see WirtualnyPrzeciwnik
  * @see MozliwoscGryAI
  * @see PlanszaKolkoIKrzyzyk
  */
 public class KolkoIKrzyzyk implements MozliwoscGryAI {
 
-    PlanszaKolkoIKrzyzyk planszaKolkoIKrzyzyk;
-    //PlanszaKolkoIKrzyzyk planszaDoPrzewidywania;
-    WirtualnyPrzeciwnik wirtualnyPrzeciwnik;
+    private PlanszaKolkoIKrzyzyk planszaKolkoIKrzyzyk;
+    //KolkoIKrzyzyk.PlanszaKolkoIKrzyzyk planszaDoPrzewidywania;
+    private WirtualnyPrzeciwnik wirtualnyPrzeciwnik;
 
-    /**Stworzenie nowej planszy dla gry w kolko i krzyzyk przy pomocy klasy PlanszaKolkoIKrzyzyk
+    /**Stworzenie nowej planszy dla gry w kolko i krzyzyk przy pomocy klasy KolkoIKrzyzyk.PlanszaKolkoIKrzyzyk
      */
-    KolkoIKrzyzyk() {
+    public KolkoIKrzyzyk() {
         planszaKolkoIKrzyzyk = new PlanszaKolkoIKrzyzyk();
     }
 
     /** Metoda ktora powoduje uruchomienie rozgrywki miedzy dwoma graczami na terminalu
      */
-    void graMiedzyDwomaGraczami() {//metoda umozliwiajaca gra miedzy dwoma graczami stworzona w ramach testow
+    public void graMiedzyDwomaGraczami() {//metoda umozliwiajaca gra miedzy dwoma graczami stworzona w ramach testow
         int tura = 0;
         Random random = new Random();
         if (random.nextInt() < 0) {
@@ -62,10 +66,10 @@ public class KolkoIKrzyzyk implements MozliwoscGryAI {
         System.out.println("Gra zakonczona remisem");
     }
 
-    /**Metoda ktora przy pomocy klasy WirtualnyPrzeciwnik uruchamia gre z komputerem w terminalu
+    /**Metoda ktora przy pomocy klasy WirtualnyPrzeciwnik.WirtualnyPrzeciwnik uruchamia gre z komputerem w terminalu
      * @see WirtualnyPrzeciwnik
      */
-    void graZKomputerem(){ //TO DO
+     public void graZKomputerem(){ //TO DO
         WirtualnyPrzeciwnik wirtualnyPrzeciwnik = new WirtualnyPrzeciwnik();
         this.wirtualnyPrzeciwnik = wirtualnyPrzeciwnik;
         int tura = 0;
@@ -97,8 +101,8 @@ public class KolkoIKrzyzyk implements MozliwoscGryAI {
             }
 
             if (tura == 1) {
-                wirtualnyPrzeciwnik.stronaPlanszy = tura;
-                int zwrot = wirtualnyPrzeciwnik.zwrocRuch(zbudujDrzewo(tura));//ruch komputera jest uzyskiwany za pomoca klasy WirtualnyPrzeciwnik
+                wirtualnyPrzeciwnik.setStronaPlanszy(tura);
+                int zwrot = wirtualnyPrzeciwnik.zwrocRuch(zbudujDrzewo(tura));//ruch komputera jest uzyskiwany za pomoca klasy WirtualnyPrzeciwnik.WirtualnyPrzeciwnik
 
                 System.out.println("\n\nZwrocono " + zwrot);
                 int k = zwrot/planszaKolkoIKrzyzyk.getN();
@@ -117,9 +121,9 @@ public class KolkoIKrzyzyk implements MozliwoscGryAI {
         System.out.println("Gra zakonczona remisem");
     }
 
-    /** Metoda budujaca drzewo decyzyjne dla przeciwnika, za pomoca ktorego klasa WirtualnyPrzeciwnik moze podejmowac decyzje, wymagana przez interfejs MozliwoscGryAI
+    /** Metoda budujaca drzewo decyzyjne dla przeciwnika, za pomoca ktorego klasa WirtualnyPrzeciwnik.WirtualnyPrzeciwnik moze podejmowac decyzje, wymagana przez interfejs WirtualnyPrzeciwnik.WirtualnyPrzeciwnik.MozliwoscGryAI
      * @param aktualnyGracz int oznaczajacy dla ktorego gracza drzewo ma byc zbudowane
-     * @return zwraca drzewo decyzyjne przechowywane w klasie DrzewoDecyzyjne
+     * @return zwraca drzewo decyzyjne przechowywane w klasie WirtualnyPrzeciwnik.WirtualnyPrzeciwnik.DrzewoDecyzyjne
      * @see DrzewoDecyzyjne
      * @see MozliwoscGryAI
      */
@@ -186,9 +190,9 @@ public class KolkoIKrzyzyk implements MozliwoscGryAI {
 
         for (int k = 0; k < planszaKolkoIKrzyzyk.getN(); k++) {// aktualnie rozwazane pole
             for (int l = 0; l < planszaKolkoIKrzyzyk.getN(); l++) {//druga petla odpowiedzialna za aktualnie rozwazane pole
-                wartoscRuchu = 0;
+                //wartoscRuchu = 0;
                 if (planszaKolkoIKrzyzyk.plansza[k][l] != '-') {
-                    continue;
+                    //continue;
                 }
                 else{
                     drzewoDecyzyjne.dodajRodzica(k,l,0,k*planszaKolkoIKrzyzyk.getN() + l);
@@ -201,7 +205,7 @@ public class KolkoIKrzyzyk implements MozliwoscGryAI {
         for (int i = 0; i < drzewoDecyzyjne.rodzice.size(); i++) {//budowanie drzewa rekurencyjnie przy pomocy metody dodajMozliweScenariusze
             tmp = new PlanszaKolkoIKrzyzyk();
             tmp.skopiujTablice(planszaKolkoIKrzyzyk);
-            tmp.plansza[drzewoDecyzyjne.rodzice.get(i).indi][drzewoDecyzyjne.rodzice.get(i).indj] = znak;
+            tmp.plansza[drzewoDecyzyjne.rodzice.get(i).getIndi()][drzewoDecyzyjne.rodzice.get(i).getIndj()] = znak;
             if(aktualnyGracz == 0)
                 dodajMozliweScenariusze(drzewoDecyzyjne.rodzice.get(i),tmp,1);
             else
@@ -218,7 +222,7 @@ public class KolkoIKrzyzyk implements MozliwoscGryAI {
      * @param planszaKolkoIKrzyzyk plansza z aktualnym rozlozeniem planszy w symulacji
      * @param aktualnyGracz int mowiacy o tym ktory gracz ma teraz ruch, przyjmuje 0 lub 1
      */
-    private void dodajMozliweScenariusze(ElementDrzewa elementDrzewa,PlanszaKolkoIKrzyzyk planszaKolkoIKrzyzyk,int aktualnyGracz)//dalszy etap budowania drzewa wykorzystany w metodzie zbudujDrzewo
+    private void dodajMozliweScenariusze(ElementDrzewa elementDrzewa, PlanszaKolkoIKrzyzyk planszaKolkoIKrzyzyk, int aktualnyGracz)//dalszy etap budowania drzewa wykorzystany w metodzie zbudujDrzewo
     {
         char znak;
         if(aktualnyGracz==0)
@@ -229,9 +233,9 @@ public class KolkoIKrzyzyk implements MozliwoscGryAI {
 
         if(planszaKolkoIKrzyzyk.sprawdzWygrana() != 0) {
            // planszaKolkoIKrzyzyk.wyswietlPlansze();
-            if(aktualnyGracz != wirtualnyPrzeciwnik.stronaPlanszy)// tu jest sprawdzana wygranego poprzedniego gracza a nie aktulanego wiec musi byc !=
-                elementDrzewa.wartosc +=10000;
-            else elementDrzewa.wartosc -= 10000;
+            if(aktualnyGracz != wirtualnyPrzeciwnik.getStronaPlanszy())// tu jest sprawdzana wygrana poprzedniego gracza a nie aktulanego wiec musi byc !=
+                elementDrzewa.setWartosc(10000);
+            else elementDrzewa.setWartosc(-10000);
             return;
         }
 
@@ -287,7 +291,7 @@ public class KolkoIKrzyzyk implements MozliwoscGryAI {
             for (int l = 0; l < planszaKolkoIKrzyzyk.getN(); l++) {//druga petla odpowiedzialna za aktualnie rozwazane pole
                 wartoscRuchu = 0;
                 if (planszaKolkoIKrzyzyk.plansza[k][l] != '-') {
-                    continue;
+                    //continue;
                 }
                 else{
                     elementDrzewa.dodajDziecko(k,l,0,k*planszaKolkoIKrzyzyk.getN() + l);
@@ -299,7 +303,7 @@ public class KolkoIKrzyzyk implements MozliwoscGryAI {
         for (int i = 0; i < elementDrzewa.dzieci.size(); i++) {
             tmp = new PlanszaKolkoIKrzyzyk();
             tmp.skopiujTablice(planszaKolkoIKrzyzyk);
-            tmp.plansza[elementDrzewa.dzieci.get(i).indi][elementDrzewa.dzieci.get(i).indj] = znak;
+            tmp.plansza[elementDrzewa.dzieci.get(i).getIndi()][elementDrzewa.dzieci.get(i).getIndj()] = znak;
             //System.out.println();
             //tmp.wyswietlPlansze();
             if(aktualnyGracz == 0)

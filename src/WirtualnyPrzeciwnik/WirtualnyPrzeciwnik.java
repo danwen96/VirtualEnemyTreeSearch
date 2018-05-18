@@ -1,17 +1,19 @@
+package WirtualnyPrzeciwnik;
+
 import java.util.Random;
 
 /**Klasa ktora dzieki zawartym algorytmom przeszukiwania drzewa decyzyjnego umozliwia gre z AI
  */
 public class WirtualnyPrzeciwnik {
     DrzewoDecyzyjne drzewoDecyzyjne;
-    int stronaPlanszy; // strona po ktorej gra skomputer 1 oznacza krzyzyk 0 kolo
-    static int glebokosc = 0;
+    private int stronaPlanszy; // strona po ktorej gra skomputer 1 oznacza krzyzyk 0 kolo
+    private static int glebokosc = 0;
 
     /**Metoda na podstawie dostarczonego drzewa decyzyjnego zwraca index ruchu komputera uzywajac do tego ustalonego algorytmu
      * @param drzewoDecyzyjne przyjmuje zbudowane wczesniej drzewo decyzyjne
      * @return zwraca index ruchu do podjecia
      */
-    int zwrocRuch(DrzewoDecyzyjne drzewoDecyzyjne) {//TO DO
+    public int zwrocRuch(DrzewoDecyzyjne drzewoDecyzyjne) {//TO DO
 //        int indexMax= 0;
 //        int wartoscMax = -1;
 //        for (int i = 0; i < drzewoDecyzyjne.rodzice.size(); i++) {
@@ -35,7 +37,7 @@ public class WirtualnyPrzeciwnik {
      * @param drzewoDecyzyjne drzewo decyzyjne do przeszukania
      * @return zwraca index z drzewa decyzyjnego z najlepsza wedlug tego algorytmu wartoscia
      */
-    int minMax(DrzewoDecyzyjne drzewoDecyzyjne)
+    public int minMax(DrzewoDecyzyjne drzewoDecyzyjne)
     {
         //TO DO
         int max = Integer.MIN_VALUE;
@@ -65,7 +67,7 @@ public class WirtualnyPrzeciwnik {
      * @return najwieksza albo najmniejsza wartosc
      * @see ElementDrzewa
      */
-    int minMaxReqursiveCall(ElementDrzewa elementDrzewa,int operacja)
+    private int minMaxReqursiveCall(ElementDrzewa elementDrzewa, int operacja)
     {
         if(elementDrzewa.dzieci.isEmpty())
         {
@@ -86,7 +88,7 @@ public class WirtualnyPrzeciwnik {
                // System.out.println("glebokosc "+glebokosc +" " +tmp + " ");
                 if(tmp > max)
                 {
-                    id = i;
+                    //id = i;
                     max  = tmp;
                 }
             }
@@ -105,7 +107,7 @@ public class WirtualnyPrzeciwnik {
                 //System.out.println("glebokosc "+glebokosc +" " +tmp + " ");
                 if(tmp < min)
                 {
-                    id = i;
+                    //id = i;
                     min  = tmp;
                 }
             }
@@ -131,6 +133,15 @@ public class WirtualnyPrzeciwnik {
         Random random = new Random();
 
         return random.nextInt(drzewoDecyzyjne.rodzice.size());
+    }
+
+
+    public int getStronaPlanszy() {
+        return stronaPlanszy;
+    }
+
+    public void setStronaPlanszy(int stronaPlanszy) {
+        this.stronaPlanszy = stronaPlanszy;
     }
 
 }

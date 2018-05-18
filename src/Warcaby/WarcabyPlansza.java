@@ -1,7 +1,9 @@
+package Warcaby;
+
 /** Klasa zawierajaca plansze do warcab // TO DO
  */
 public class WarcabyPlansza {
-    char tab[][];
+    private char tab[][];
 
     /**Tworzenie nowej tablicy i wypelnienie jej
      *
