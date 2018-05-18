@@ -3,7 +3,7 @@ package KolkoIKrzyzyk;
 /**Klasa zawierajaca plansze do gry w kolko i krzyzyk i metody umozliwiajace uzywanie na niej podstawowych akcji
  */
 public class PlanszaKolkoIKrzyzyk {
-    public char[][] plansza;
+    char[][] plansza;
 
     private int n = 3;
 
@@ -63,12 +63,12 @@ public class PlanszaKolkoIKrzyzyk {
      */
     void skopiujTablice(PlanszaKolkoIKrzyzyk plansza)
     {
-//        for (int i = 0; i < n; i++) {
-//            for (int j = 0; j < n; j++) {
-//                this.plansza[i][j] = plansza.plansza[i][j];
-//            }
-//        }
-        System.arraycopy(plansza.plansza,0,this.plansza,0,n);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                this.plansza[i][j] = plansza.plansza[i][j];
+            }
+        }
+        //System.arraycopy(this.plansza,0,plansza.plansza,0,n);
     }
 
     /**
